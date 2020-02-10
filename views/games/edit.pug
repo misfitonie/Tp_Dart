@@ -1,0 +1,9 @@
+html
+    head
+        title Edit game
+    body
+        h1 Edit game
+        form(method='POST' action='/games/'+id+"?_method=PATCH")
+            input(type='text', name= 'name')
+            input(type='text', name= 'mode')
+            button(type='submit') Edit

@@ -1,0 +1,9 @@
+html
+    head
+        title Add player
+    body
+        h1 Add player
+        form(method='POST' action='/players')
+            input(type='text', name= 'name')
+            input(type='email', name= 'email')
+            button(type='submit') Add
