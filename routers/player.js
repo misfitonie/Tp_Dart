@@ -38,16 +38,12 @@ router.get('/new', (req, res, next) => {
      })
 })
 
-router.get('/:id', (req, res, next) => { 
+router.get('/:id', async (req, res, next) => { 
      const id = req.params.id
+     const player = await Player.get(id)
      res.format({
           json: () => {
-               res.status(200).send({
-                    player : {
-                         id : 0,
-                         name : "toto"
-                    }
-               })
+               res.status(200).send(player)
           },
 
           html : () => {
@@ -57,7 +53,6 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.get('/:id/edit', (req, res, next) => { 
-     console.log('Correspond à /dgfdgfdg');
      res.end()
 })
 

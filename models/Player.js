@@ -20,19 +20,11 @@ module.exports = {
             gameLost: 0,
             createdAt: new Date()
         })
-
-        const result = player.save((err, player)=>{
-            return player
-        })
-        return result
+    
+        return player.save()
     },
 
     async get(id){
-        const sql = `select * from Player where id = ?`
-
-        const res = db.run(sql, [id])
-        console.log(res)
-        return res
-
+        return Player.findOne({_id: id})
     }
 }
