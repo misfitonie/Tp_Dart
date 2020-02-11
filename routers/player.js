@@ -1,11 +1,24 @@
 const router = require('express').Router()
+const Player = require ('../models/Player.js')
 
 router.get('/', (req, res, next) => { 
      console.log('Correspond à /gfd');
 })
 
-router.post('/', (req, res, next) => { 
-     console.log('Correspond à /players');
+router.post('/', async (req, res, next) => { 
+     const { name, email } = req.body
+     const player = await Player.insert(name,email)
+          
+     res.format({
+          json: () => {
+               res.status(201).send(player)
+          },
+
+          html: () => {
+               res.redirect(301,'/players/'+id)
+          }
+     })
+     
 })
 
 router.get('/new', (req, res, next) => { 
