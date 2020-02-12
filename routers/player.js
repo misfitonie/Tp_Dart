@@ -1,8 +1,21 @@
 const router = require('express').Router()
 const Player = require ('../models/Player.js')
 
-router.get('/', (req, res, next) => { 
-     console.log('Correspond à /gfd');
+router.get('/', async (req, res, next) => { 
+     const player = await Player.getAll()
+
+     res.format({
+          json: () => {
+               res.status(200).send(player)
+          },
+
+          html: () => {
+               res.render("players/all", {
+                    all: player
+               })
+          }
+     })
+
 })
 
 router.post('/', async (req, res, next) => { 
@@ -56,16 +69,17 @@ router.get('/:id/edit', (req, res, next) => {
      res.end()
 })
 
-router.patch('/:id', (req, res, next) => { 
+router.patch('/:id', async (req, res, next) => { 
      const id = req.params.id
+     const {name,email} = req.body
+     let result = {}
+     result["name"]=name
+     result["email"]=email
+     const player = await Player.patch(id,result)
+
      res.format({
           json: () => {
-               res.status(204).send({
-                    player : {
-                         id: id,
-                         name: "testPatch"
-                     }
-               })
+               res.status(204).send(player)
           },
 
           html : () => {
@@ -74,8 +88,9 @@ router.patch('/:id', (req, res, next) => {
      })
 })
 
-router.delete('/:id', (req, res, next) => { 
+router.delete('/:id', async (req, res, next) => { 
      const id = req.params.id
+     await Player.delete(id)
      res.format({
           json: () => {
                res.status(204).send()

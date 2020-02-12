@@ -1,30 +1,32 @@
 const db = require('../db/db.js')
 
+
+const schema = db.Schema({
+    mode : String,
+    name : String,
+    currentPlayerId : Number,
+    status : String,
+    createdAt: Date
+  }, {versionKey: false}); 
+  
+  let Game = db.model('Game', schema, 'games');
+
+
 module.exports = {
 
-    insert : async (name,mode) =>{
-        const sql = `insert into Game (mode, name, currentPlayerId, status, createdAt) values
-        (?,?,null,draft,?)`
-
-        db.run(sql,[mode,name,new Date()], err => {
-            if (err) {
-                return console.error(err.message);
-            }
-        
-            console.log("Nouveau Game ajouté")
+    async insert(mode,name){
+        let game = new Game({
+            mode: mode,
+            name: name,
+            currentPlayerId: null,
+            status: 'draft',
+            createdAt: new Date()
         })
+    
+        return game.save()
     },
 
-    get : async (id) =>{
-        const sql = `select * from Game where id = ?`
-
-        const result = db.run(sql,[id], (err,rows) => {
-            if (err) {
-                return err.message;
-            }
-            return rows
-        })
-
-        return result
+    async get(id){
+        return Game.findOne({_id: id})
     }
 }

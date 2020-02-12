@@ -1,10 +1,10 @@
 const db = require('../db/db.js')
 
 const schema = db.Schema({
-    mode: String, 
     name: String,
-    currentPlayerId: null | String | Number,
-    status: String,
+    email : String,
+    gameWin : Number,
+    gameLost : Number,
     createdAt: Date
   }, {versionKey: false}); 
   
@@ -26,5 +26,19 @@ module.exports = {
 
     async get(id){
         return Player.findOne({_id: id})
+    },
+
+    async getAll(){
+        return Player.find({})
+    },
+
+    async delete(id){
+        return Player.deleteOne({_id:id})
+    },
+
+    async patch(id,result){
+        return Player.findOneAndUpdate({_id:id},result)
     }
+
+
 }

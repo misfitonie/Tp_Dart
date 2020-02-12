@@ -1,13 +1,24 @@
 const router = require('express').Router()
-
+const Game = require('../models/Games.js')
 router.get('/', (req, res, next) => { 
      console.log('Correspond à /games');
      res.end()
 })
 
-router.post('/', (req, res, next) => { 
-    console.log('Correspond à /games');
-    res.end()
+router.post('/', async (req, res, next) => { 
+     const { mode, name } = req.body
+     const game = await Game.insert(mode,name)
+          
+     res.format({
+          json: () => {
+               res.status(201).send(game)
+          },
+
+          html: () => {
+               res.redirect(301,'/games/'+id)
+          }
+     })
+     
 })
 
 router.get('/new', (req, res, next) => { 
@@ -27,16 +38,12 @@ router.get('/new', (req, res, next) => {
    })
 })
 
-router.get('/:id', (req, res, next) => { 
-    const id = req.params.id
+router.get('/:id', async (req, res, next) => { 
+     const id = req.params.id
+     const game = await Game.get(id)
      res.format({
           json: () => {
-               res.status(200).send({
-                    game : {
-                         id : 0,
-                         name : "toto"
-                    }
-               })
+               res.status(200).send(game)
           },
 
           html : () => {
