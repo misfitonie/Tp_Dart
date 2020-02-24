@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Game = require('../models/Games.js')
 
-router.get('/', (req, res, next) => { 
+router.get('/', async (req, res, next) => { 
      console.log('Correspond à /games');
      const game = await Game.getAll()
 
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
           },
 
           html: () => {
-               res.render("gamers/all", {
+               res.render("games/all", {
                     all: game
                })
           }
@@ -88,10 +88,11 @@ router.get('/:id/edit', (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => { 
     const id = req.params.id
-    const {mode, name} = req.body
+    const {mode, name, status} = req.body
      let result = {}
      result["mode"]=mode
      result["name"]=name
+     result["status"]=status
      const game = await Game.patch(id,result)
 
     res.format({
@@ -105,7 +106,7 @@ router.patch('/:id', async (req, res, next) => {
     })
 })
 
-router.delete('/:id', (req, res, next) => { 
+router.delete('/:id', async (req, res, next) => { 
     const id = req.params.id
     await Game.delete(id)
      res.format({

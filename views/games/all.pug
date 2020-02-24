@@ -1,0 +1,20 @@
+html
+    head
+        title All game
+    body
+        h1 All game
+        table
+            tr
+                th mode
+                th name
+                th currentPlayerId
+                th status
+                th CreatedAt
+
+            each game in all
+                tr
+                    td= game.mode
+                    td= game.name
+                    td= game.currentPlayerid
+                    td= game.status
+                    td= game.createdAt

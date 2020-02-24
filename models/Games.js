@@ -28,5 +28,17 @@ module.exports = {
 
     async get(id){
         return Game.findOne({_id: id})
+    },
+
+    async getAll(){
+        return Game.find({})
+    },
+
+    async delete(id){
+        return Game.deleteOne({_id:id})
+    },
+
+    async patch(id,result){
+        return Game.findOneAndUpdate({_id:id},result)
     }
 }
