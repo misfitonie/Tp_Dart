@@ -1,8 +1,21 @@
 const router = require('express').Router()
 const Game = require('../models/Games.js')
+
 router.get('/', (req, res, next) => { 
      console.log('Correspond à /games');
-     res.end()
+     const game = await Game.getAll()
+
+     res.format({
+          json: () => {
+               res.status(200).send(game)
+          },
+
+          html: () => {
+               res.render("gamers/all", {
+                    all: game
+               })
+          }
+     })
 })
 
 router.post('/', async (req, res, next) => { 
@@ -73,21 +86,20 @@ router.get('/:id/edit', (req, res, next) => {
     
 })
 
-router.patch('/:id', (req, res, next) => { 
+router.patch('/:id', async (req, res, next) => { 
     const id = req.params.id
-    console.log("trd")
+    const {mode, name} = req.body
+     let result = {}
+     result["mode"]=mode
+     result["name"]=name
+     const game = await Game.patch(id,result)
+
     res.format({
-         json: () => {
-              res.status(200).send({
-                  game : {
-                      id: id,
-                      name: "testPatch"
-                  }
-              })
-         },
+     json: () => {
+          res.status(204).send(game)
+     },
 
          html : () => {
-             console.log("trjhgfsd")
               res.redirect(301, '/games')
          }
     })
@@ -95,6 +107,7 @@ router.patch('/:id', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => { 
     const id = req.params.id
+    await Game.delete(id)
      res.format({
           json: () => {
                res.status(204).send()
