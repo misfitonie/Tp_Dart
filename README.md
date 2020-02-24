@@ -11,7 +11,7 @@
     node app.js
 ```
 
-### Route non-faites 
+### Routes non-faites 
 
 - GET/games/id/players
 - POST/games/id/players
