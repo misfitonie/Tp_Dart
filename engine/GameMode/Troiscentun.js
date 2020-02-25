@@ -5,16 +5,19 @@ module.exports = class Troiscentun extends Game{
     constructor(Players) {
         super(Players)
     }
-    
 
+    
     async play(){
 
-
         let Endgame = false
+        const CantPlay = (currentValue) => currentValue.PlayerCanShoot == false;
         this.setInitScores()
 
         while(Endgame != true){
             for(let i=0; i<this.Players.length; i++){
+                if( this.Players.every(CantPlay) ){
+                    Endgame = true;
+                    break;}
                 let player = this.Players[i]
 
                 console.log("C'est au tour de "+player.PlayerName)
@@ -36,7 +39,7 @@ module.exports = class Troiscentun extends Game{
                                 console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
                             }
                             else if(nextScore==1){
-                                console.log("Perdu ! Vous ne pouvez plus tirez !")
+                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore<=0){
@@ -45,19 +48,19 @@ module.exports = class Troiscentun extends Game{
                             }
                         }
                         else if(multi == "x2"){
-                            console.log(beforeScore)
                             nextScore = beforeScore - (sector*2)
-                            console.log(nextScore)
                             if(nextScore>1){
                                 this.Players[i].PlayerScore = nextScore
                                 console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
                             }
                             else if(nextScore==1){
-                                console.log("Perdu ! Vous ne pouvez plus tirez !")
+                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore==0){
-                                console.log("Bravo ! Vous avez gagné")
+                                console.log("Bravo "+player.PlayerName+" Vous avez gagné !")
+                                Endgame = true
+                                break
                             }
                             else{
                                 console.log("Score invalide ! Votre lancer n'est pas compté !")
@@ -71,7 +74,7 @@ module.exports = class Troiscentun extends Game{
                                 console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
                             }
                             else if(nextScore==1){
-                                console.log("Perdu ! Vous ne pouvez plus tirez !")
+                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore<=0){
