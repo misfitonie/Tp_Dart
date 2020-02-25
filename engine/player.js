@@ -1,7 +1,7 @@
-class Player {
-    constructor(name,score){
+module.exports = class Player {
+    constructor(name){
         this.PlayerName = name
-        this.PlayerScore = score
-        
+        this.PlayerScore = 0
     }
 }
+
