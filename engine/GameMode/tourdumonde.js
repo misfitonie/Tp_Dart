@@ -16,7 +16,7 @@ module.exports = class Tourdumonde extends Game{
             for(let i=0; i<this.Players.length; i++){
                 let player = this.Players[i] 
 
-                console.log("C'est au tour de "+player.PlayerName)
+                console.log("\nC'est au tour de "+player.PlayerName+"\n")
                 console.log("prochaine cible: "+this.scores[i])
 
                 for(let j=0; j<3; j++){
@@ -25,13 +25,13 @@ module.exports = class Tourdumonde extends Game{
                         this.scores[i] = sector+1
                         this.Players[i].PlayerScore = player.PlayerScore+1
                     }
-                    if(sector == 21){
+                    if(sector == 20){
                         break
                     }
-                    console.log("prochaine cible: "+this.scores[i])
+                    console.log("\nProchaine cible: "+this.scores[i]+" !\n")
                 }
 
-                if(player.PlayerScore == 21){
+                if(player.PlayerScore == 20){
                     Endgame = true
                     this.endGame(player.PlayerName)
                     break
@@ -42,8 +42,8 @@ module.exports = class Tourdumonde extends Game{
     }
 
     endGame(player){
-        console.log("Partie fini ! Merci d'avoir jouer !")
-        console.log("Notre heureux gagant est "+player)
+        console.log("\nPartie fini ! Merci d'avoir jouer !")
+        console.log("Notre heureux gagant est "+player+"!\n")
         console.table(this.Players.sort((a, b) => (a.PlayerScore > b.PlayerScore) ? -1 : 1))
     }
 

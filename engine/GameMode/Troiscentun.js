@@ -20,8 +20,8 @@ module.exports = class Troiscentun extends Game{
                     break;}
                 let player = this.Players[i]
 
-                console.log("C'est au tour de "+player.PlayerName)
-                console.log("Ton score est de :"+ this.Players[i].PlayerScore)
+                console.log("\nC'est au tour de "+player.PlayerName)
+                console.log("\nTon score est de :"+ this.Players[i].PlayerScore+" !\n")
 
                 if(player.PlayerCanShoot == true){
 
@@ -36,50 +36,50 @@ module.exports = class Troiscentun extends Game{
                             nextScore = beforeScore - sector
                             if(nextScore>1){
                                 this.Players[i].PlayerScore = nextScore
-                                console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
+                                console.log("\nTon nouveau score est de :"+this.Players[i].PlayerScore+" !\n")
                             }
                             else if(nextScore==1){
-                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
+                                console.log("\nPerdu "+player.PlayerName+", vous ne pouvez plus tirez !\n")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore<=0){
-                                console.log("Score invalide ! Votre lancer n'est pas compté !")
-                                console.log("Ton score est toujours de :"+this.Players[i].PlayerScore)
+                                console.log("\nScore invalide ! Votre lancer n'est pas compté...")
+                                console.log("\nTon score reste à :"+this.Players[i].PlayerScore+" !\n")
                             }
                         }
                         else if(multi == "x2"){
                             nextScore = beforeScore - (sector*2)
                             if(nextScore>1){
                                 this.Players[i].PlayerScore = nextScore
-                                console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
+                                console.log("\nTon nouveau score est de :"+this.Players[i].PlayerScore+" !\n")
                             }
                             else if(nextScore==1){
-                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
+                                console.log("\nPerdu "+player.PlayerName+", vous ne pouvez plus tirez !\n")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore==0){
-                                console.log("Bravo "+player.PlayerName+" Vous avez gagné !")
+                                console.log("\nBravo "+player.PlayerName+" Vous avez gagné !\n")
                                 Endgame = true
                                 break
                             }
                             else{
-                                console.log("Score invalide ! Votre lancer n'est pas compté !")
-                                console.log("Ton score est toujours de :"+this.Players[i].PlayerScore)
+                                console.log("\nScore invalide ! Votre lancer n'est pas compté !")
+                                console.log("\nTon score reste à :"+this.Players[i].PlayerScore+" !\n")
                             }
                         }
                         else if(multi == "x3"){
                             nextScore = beforeScore - (sector*3)
                             if(nextScore>1){
                                 this.Players[i].PlayerScore = nextScore
-                                console.log("Ton nouveau score est de :"+this.Players[i].PlayerScore)
+                                console.log("\nTon nouveau score est de :"+this.Players[i].PlayerScore+" !\n")
                             }
                             else if(nextScore==1){
-                                console.log("Perdu "+player.PlayerName+", vous ne pouvez plus tirez !")
+                                console.log("\nPerdu "+player.PlayerName+", vous ne pouvez plus tirez !\n")
                                 this.Players[i].PlayerCanShoot = false
                             }
                             else if(nextScore<=0){
-                                console.log("Score invalide ! Votre lancer n'est pas compté !")
-                                console.log("Ton score est toujours de :"+this.Players[i].PlayerScore)
+                                console.log("\nScore invalide ! Votre lancer n'est pas compté !")
+                                console.log("\nTon score est toujours de :"+this.Players[i].PlayerScore+" !\n")
                             }
                         }
                         if(this.Players[i].PlayerCanShoot == false){
@@ -89,7 +89,7 @@ module.exports = class Troiscentun extends Game{
                 }
                 if(this.Players[i].PlayerScore==0){
                     Endgame = true
-                    this.endGame(player)
+                    this.endGame(player.PlayerName)
                     break
                 }
             } 
@@ -103,11 +103,11 @@ module.exports = class Troiscentun extends Game{
         } 
     }
 
-    endGame(player){
-        console.log("Partie fini ! Merci d'avoir jouer !")
-        console.log("Notre heureux gagant est "+player)
-        console.table(this.Players.sort((a, b) => (a.PlayerScore > b.PlayerScore) ? 1 : -1))
-    }
+    // endGame(player){
+    //     console.log("Partie fini ! Merci d'avoir jouer !")
+    //     console.log("Notre heureux gagant est "+player)
+    //     console.table(this.Players.sort((a, b) => (a.PlayerScore < b.PlayerScore) ? 1 : -1))
+    // }
 
     async SectorHited(){
         return await inquirer.prompt([{
